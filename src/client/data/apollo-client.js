@@ -9,7 +9,6 @@ const cache = new InMemoryCache()
 
 const stateLink = withClientState({
   cache,
-  resolvers: '',
   defaults: localStateDefaults
 })
 
