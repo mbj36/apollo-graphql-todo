@@ -1,21 +1,19 @@
-import React, { Component } from 'react'
+import React from 'react'
 import gql from 'graphql-tag'
 import { graphql } from 'react-apollo'
 
-class TodoForm extends Component {
+class TodoForm extends React.Component {
   constructor(props) {
     super(props)
     this.state = {
       title: ''
     }
   }
-
   setTitle = e => {
     this.setState({
       title: e.target.value
     })
   }
-
   addTodo = e => {
     if (e.key !== 'Enter' || !this.state.title) {
       return
@@ -31,7 +29,7 @@ class TodoForm extends Component {
     return (
       <div style={{ marginTop: 20, marginBottom: 20 }}>
         <input
-          placeholder="Enter todo"
+          placeholder="Enter Todo"
           className="form-control"
           value={this.state.title}
           onKeyDown={this.addTodo}
@@ -47,4 +45,5 @@ const addTodoMutation = gql`
     addTodo(title: $title) @client
   }
 `
+
 export default graphql(addTodoMutation)(TodoForm)

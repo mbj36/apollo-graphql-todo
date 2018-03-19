@@ -10,19 +10,18 @@ const todosQuery = gql`
     }
   }
 `
+
 export default {
   Mutation: {
     addTodo: (_, variables, { cache }) => {
-      const { todos } = cache.readQuery({
-        query: todosQuery
-      })
+      const { todos } = cache.readQuery({ query: todosQuery })
       const data = {
         todos: [
           {
             id: uuid.v4(),
             title: variables.title,
             completed: false,
-            __typename: todo
+            __typename: 'Todo'
           },
           ...todos
         ]
@@ -31,7 +30,7 @@ export default {
       return null
     },
     deleteTodo: (_, variables, { cache }) => {
-      const { todos } = cache.readQuery({ query: readQuery })
+      const { todos } = cache.readQuery({ query: todosQuery })
       const data = {
         todos: todos.filter(todo => todo.id !== variables.id)
       }
@@ -39,9 +38,7 @@ export default {
       return null
     },
     toggleTodo: (_, variables, { cache }) => {
-      const { todos } = cache.readQuery({
-        query: todosQuery
-      })
+      const { todos } = cache.readQuery({ query: todosQuery })
       const data = {
         todos: todos.map(todo => ({
           ...todo,

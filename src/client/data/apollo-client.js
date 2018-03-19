@@ -1,14 +1,15 @@
-import ApolloClient from 'apollo-client-preset'
-import InMemoryCache from 'apollo-client-preset'
+import { ApolloClient } from 'apollo-client'
+import { InMemoryCache } from 'apollo-cache-inmemory'
 import { ApolloLink } from 'apollo-link'
-
+import localStateResolvers from './local-state/resolvers'
+import localStateDefaults from './local-state/defaults'
 import { withClientState } from 'apollo-link-state'
-import localStateDefaults from './local-state/default'
 
 const cache = new InMemoryCache()
 
 const stateLink = withClientState({
   cache,
+  resolvers: localStateResolvers,
   defaults: localStateDefaults
 })
 
